@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="masterTemplate::layout(~{::body})">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="masterTemplate::layout(~{::section})">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Chintan Ganeshwala</h1>
+	<section class="banner d-flex justify-content-center align-items-center">
+		<div class="text-center">
+			<h1 class="font-weight-bold">Smart Contact Manager</h1>
+			<p>
+				Collecting your contact in very smart way. We provide very efficient and smarter way to handler contacts.
+			</p>
+			<button class="btn bg-primary btn-lg"> Get Start</button>
+		</div>
+		<footer>
+			<div class="watermark">Create By:-Chintan Ganeshwala</div>
+		</footer>
+	</section>
 </body>
 </html>
