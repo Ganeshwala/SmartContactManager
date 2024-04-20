@@ -14,36 +14,36 @@
 					<div class="my-card mt-5">
 						<h2 class="text-center">User Registration</h2>
 
-						<form th:action="@{/doRegister}" method="post">
+						<form th:action="@{/doRegister}" method="post" th:object="${user}">
 							<div class="mb-3">
 								<label for="loginName" class="form-label">UserName</label> 
 								
-								<input type="text" class="form-control" id="loginName" placeholder="Enter Here" required="required" name="loginName">
+								<input type="text" class="form-control" id="loginName" placeholder="Enter Here" name="loginName" th:value="${user.loginName}">
 							</div>
 							
 							<div class="mb-3">
 								<label for="username" class="form-label">Name</label> 
 								
-								<input type="text" class="form-control" id="username" placeholder="Enter Here" required="required" name="username">
+								<input type="text" class="form-control" id="username" placeholder="Enter Here"  name="username" th:value="${user.username}">
 							</div>
 							
 							<div class="mb-3">
 								<label for="userEmail" class="form-label">Email</label> 
 								
-								<input type="text" class="form-control" id="userEmail" placeholder="Enter Here" required="required" name="userEmail" aria-describedby="emailHelp">
+								<input type="text" class="form-control" id="userEmail" placeholder="Enter Here" required="required" name="userEmail" th:value="${user.userEmail}" aria-describedby="emailHelp">
 								<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
 							</div>
 							
 							<div class="mb-3">
 								<label for="password" class="form-label">Password</label> 
 								
-								<input type="password" class="form-control" id="password" placeholder="Enter Here" required="required" name="password ">
+								<input type="password" class="form-control" id="password" placeholder="Enter Here" required="required" name="password" th:value="${user.password}">
 							</div>
 							
 							<div class="mb-3">
 								<label for="phoneNumber" class="form-label">Phone Number</label> 
 								
-								<input type="number" class="form-control" id="phoneNumber" placeholder="Enter Here" required="required" name="phoneNumber">
+								<input type="number" class="form-control" id="phoneNumber" placeholder="Enter Here" name="phoneNumber" th:value="${user.phoneNumber}">
 							</div>
 							
 							<!-- term and condition -->

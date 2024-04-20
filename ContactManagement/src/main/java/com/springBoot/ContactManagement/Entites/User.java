@@ -45,4 +45,21 @@ public class User {
 
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "userObjId")
 	private List<ContactDeatil> contacts;
+	
+	
+	public enum RoleAssign{
+		ADMIN("Admin"),
+		SUBADM("Sub-Admin"),
+		USER("User");
+		
+		private String assignRole;
+		
+		RoleAssign(String assignRole) {
+			this.assignRole = assignRole;
+		}
+		
+		public String getAssignRole() {
+			return assignRole;
+		}
+	}
 }
