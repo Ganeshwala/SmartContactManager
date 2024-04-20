@@ -12,4 +12,14 @@ public class CMController {
 		model.addAttribute("title", "Smart Contact Management Application");
 		return "welcome";
 	}
+	/**
+	 * User Registration Page link
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/userSignUp")
+	public String doUserSignUp(Model model) {
+		model.addAttribute("title", "Register User - Smart Contact Management Application");
+		return "userSignUp";
+	}
 }

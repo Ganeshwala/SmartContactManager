@@ -33,6 +33,7 @@ public class User {
 	private String loginName;
 	private String userNickName;
 	private String username;
+	private String password;
 	private String userEmail;
 	private double phoneNumber;
 	private Date createDate;
@@ -40,9 +41,7 @@ public class User {
 	private String description;
 	private String userImage;
 	private boolean active;
-
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private UserRole role;
+	private String role;
 
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "userObjId")
 	private List<ContactDeatil> contacts;

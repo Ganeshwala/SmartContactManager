@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="masterTemplate::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card mt-5">
+						<h2 class="text-center">User Registration</h2>
+
+						<form th:action="@{/doRegister}" method="post">
+							<div class="mb-3">
+								<label for="loginName" class="form-label">UserName</label> 
+								
+								<input type="text" class="form-control" id="loginName" placeholder="Enter Here" required="required" name="loginName">
+							</div>
+							
+							<div class="mb-3">
+								<label for="username" class="form-label">Name</label> 
+								
+								<input type="text" class="form-control" id="username" placeholder="Enter Here" required="required" name="username">
+							</div>
+							
+							<div class="mb-3">
+								<label for="userEmail" class="form-label">Email</label> 
+								
+								<input type="text" class="form-control" id="userEmail" placeholder="Enter Here" required="required" name="userEmail" aria-describedby="emailHelp">
+								<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+							</div>
+							
+							<div class="mb-3">
+								<label for="password" class="form-label">Password</label> 
+								
+								<input type="password" class="form-control" id="password" placeholder="Enter Here" required="required" name="password ">
+							</div>
+							
+							<div class="mb-3">
+								<label for="phoneNumber" class="form-label">Phone Number</label> 
+								
+								<input type="number" class="form-control" id="phoneNumber" placeholder="Enter Here" required="required" name="phoneNumber">
+							</div>
+							
+							<!-- term and condition -->
+							<div class="form-group form-check">
+								<input type="checkbox" name="agreement" class="form-check-input" id="agreement" required="required" />
+								<label>Accept Terms and Conditions</label>
+							</div>
+							
+							<div class="container text-center">
+								<button type="submit" class="btn btn-primary ">Submit</button>
+								<button type="reset" class="btn btn-warning">Reset</button>
+							</div>
+						</form>
+					</div>
+
+				</div>
+				
+			</div>
+		</div>
+	</section>
+</body>
+</html>
