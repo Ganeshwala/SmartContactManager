@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
-public class UserRegisterController {
+public class RegistrationController {
 	
 	@Autowired
 	UserJpaRepository userRepo;
