@@ -12,8 +12,10 @@
 			<div class="row">
 				<div class="col-md-8 offset-md-2">
 					<div class="my-card mt-5">
-						<div th:if="${session.message}" th:classappend="${session.message.typeString}" class="alert alert-success" role="alert">
-						  	<p th:text="${session.message.messageContent}"></p>
+						<div th:if="${session.message}"
+							th:classappend="${session.message.typeString}"
+							class="alert alert-success" role="alert">
+							<p th:text="${session.message.messageContent}"></p>
 						</div>
 						<h2 class="text-center">User Registration</h2>
 
@@ -21,40 +23,74 @@
 							<div class="mb-3">
 								<label for="loginName" class="form-label">UserName</label> 
 								
-								<input type="text" class="form-control" id="loginName" placeholder="Enter Here" name="loginName" th:value="${user.loginName}">
+								<input
+									type="text" class="form-control" id="loginName"
+									placeholder="Enter Here" name="loginName"
+									th:value="${user.loginName}"
+									th:classappend="${#fields.hasErrors('loginName')}?'is-invalid':''">
+
+								 <div th:each="erLName : ${#fields.errors('loginName')}" th:text="${erLName}" class="invalid-feedback"></div>
+ 
 							</div>
-							
+
 							<div class="mb-3">
-								<label for="username" class="form-label">Name</label> 
+								<label for="username" class="form-label">Full Name</label>
 								
-								<input type="text" class="form-control" id="username" placeholder="Enter Here"  name="username" th:value="${user.username}">
+								<input
+									type="text" class="form-control" id="username"
+									placeholder="Enter Here" name="username"
+									th:value="${user.username}"
+									th:classappend="${#fields.hasErrors('username')}?'is-invalid':''">
+									
+								<div th:each="erUName : ${#fields.errors('username')}" th:text="${erUName}" class="invalid-feedback"></div>
 							</div>
-							
+
 							<div class="mb-3">
 								<label for="userEmail" class="form-label">Email</label> 
 								
-								<input type="text" class="form-control" id="userEmail" placeholder="Enter Here" required="required" name="userEmail" th:value="${user.userEmail}" aria-describedby="emailHelp">
+								<input
+									type="text" class="form-control" id="userEmail"
+									placeholder="Enter Here" name="userEmail"
+									th:value="${user.userEmail}" aria-describedby="emailHelp"
+									th:classappend="${#fields.hasErrors('userEmail')}?'is-invalid':''">
+								
 								<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+									
+								<div th:each="erEmail : ${#fields.errors('userEmail')}" th:text="${erEmail}" class="invalid-feedback"></div>
 							</div>
-							
+
 							<div class="mb-3">
 								<label for="password" class="form-label">Password</label> 
+								<input
+									type="password" class="form-control" id="password"
+									placeholder="Enter Here" name="password"
+									th:value="${user.password}"
+									th:classappend="${#fields.hasErrors('password')}?'is-invalid':''">
 								
-								<input type="password" class="form-control" id="password" placeholder="Enter Here" required="required" name="password" th:value="${user.password}">
+								<div th:each="erPwd : ${#fields.errors('password')}" th:text="${erPwd}"
+									class="invalid-feedback"></div>
+									
 							</div>
-							
+
 							<div class="mb-3">
-								<label for="phoneNumber" class="form-label">Phone Number</label> 
-								
-								<input type="number" class="form-control" id="phoneNumber" placeholder="Enter Here" name="phoneNumber" th:value="${user.phoneNumber}">
+								<label for="phoneNumber" class="form-label">Phone Number</label>
+
+								<input type="text" class="form-control" id="phoneNumber"
+									placeholder="Enter Here" name="phoneNumber"
+									th:value="${user.phoneNumber}"
+									th:classappend="${#fields.hasErrors('phoneNumber')}?'is-invalid':''">
+									
+								<div th:each="erPh : ${#fields.errors('phoneNumber')}" th:text="${erPh}"
+									class="invalid-feedback"></div>
 							</div>
-							
+
 							<!-- term and condition -->
 							<div class="form-group form-check">
-								<input type="checkbox" name="agreement" class="form-check-input" id="agreement" required="required" />
+								<input type="checkbox" name="agreement" class="form-check-input"
+									id="agreement" required="required" /> 
 								<label>Accept Terms and Conditions</label>
 							</div>
-							
+
 							<div class="container text-center">
 								<button type="submit" class="btn btn-primary ">Submit</button>
 								<button type="reset" class="btn btn-warning">Reset</button>
@@ -63,7 +99,7 @@
 					</div>
 
 				</div>
-				
+
 			</div>
 		</div>
 	</section>
