@@ -3,6 +3,7 @@ package com.springBoot.ContactManagement.Controller;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +23,10 @@ import jakarta.validation.Valid;
 public class RegistrationController {
 	
 	@Autowired
-	UserJpaRepository userRepo;
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private UserJpaRepository userRepo;
 
 	@PostMapping("/doRegister")
 	public String getUserInformation(@Valid @ModelAttribute("user") User userInfo,BindingResult result,
@@ -46,7 +50,8 @@ public class RegistrationController {
 				userInfo.setCreateDate(new Date());
 				userInfo.setModifyDate(new Date());
 				userInfo.setRole(RoleAssign.USER.getAssignRole());
-				
+				userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+				System.out.println(userInfo.toString());
 				userRepo.save(userInfo);
 				
 				model.addAttribute("user", new User());

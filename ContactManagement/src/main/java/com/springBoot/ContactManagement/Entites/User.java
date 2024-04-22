@@ -10,6 +10,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
@@ -30,8 +31,8 @@ import lombok.NoArgsConstructor;
 public class User {
 
 	@Id
-	@SequenceGenerator(name = "userSeq", sequenceName = "User_Seq", initialValue = 100, allocationSize = 1)
 	@GeneratedValue(generator = "userSeq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "userSeq", sequenceName = "User_Seq", initialValue = 100, allocationSize = 1)
 	private int userId;
 	
 	@NotBlank(message = "User Name can not be empty")
@@ -51,8 +52,8 @@ public class User {
 	 * 3)Minimum eight characters, at least one letter, one number and one special character:
 	 */
 	@NotBlank
-	@Size(min = 5 , max=15,message = "Password must br between 5 to 15 charactors")
-	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$",message = "Minimum eight characters, at least one letter, one number and one special character") 
+	@Size(min = 5 ,/*max=15,*/message = "Password must br between 5 to 15 charactors")
+	//@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$",message = "Minimum eight characters, at least one letter, one number and one special character") 
 	private String password;
 	
 	@NotBlank
