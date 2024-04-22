@@ -42,7 +42,7 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return userInfo.isActive();
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return userInfo.isActive();
 	}
 
 	@Override
