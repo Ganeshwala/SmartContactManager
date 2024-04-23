@@ -3,6 +3,7 @@ package com.springBoot.ContactManagement.Controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.springBoot.ContactManagement.Entites.User;
 
@@ -25,4 +26,11 @@ public class CMController {
 		model.addAttribute("user", new User());
 		return "userSignUp";
 	}
+	
+	@GetMapping("/SingIn")
+	public String userLoginPage(Model model) {
+		model.addAttribute("title", "SingUp Page");
+		return "Login";
+	}
+	
 }

@@ -21,7 +21,7 @@ public class MyConfiguration {
 
 	@Bean
 	public UserDetailsService getUserDetailsService() {
-		return new UserDetailsServiceImp();
+		return  new UserDetailsServiceImp();
 	}
 	
 	@Bean
@@ -42,14 +42,22 @@ public class MyConfiguration {
         return config.getAuthenticationManager();
     }
 	 
+	 
+	 
 	 @Bean
 	 public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-		 httpSecurity.csrf().disable()
-		 .authorizeHttpRequests()
-		 .requestMatchers("/admin/**").hasAnyRole("Admin")
-		 .requestMatchers("/user/**").hasAnyRole("User")
-		 .requestMatchers("/**").permitAll()
-		 .and().formLogin();
+		 httpSecurity.csrf(csrf -> csrf.disable()) 
+		 .authorizeHttpRequests((authorize) -> authorize
+			        .requestMatchers("/admin/**").hasAnyRole("Admin")
+					 .requestMatchers("/user/**").hasAnyRole("User")
+					 .requestMatchers("/**").permitAll()
+					 .anyRequest().authenticated()
+			    )
+		 .formLogin(form -> form
+					.loginPage("/SingIn")
+					.loginProcessingUrl("/doLogin")
+					.defaultSuccessUrl("/user/dashBoard")
+					.permitAll() );
 		 
 		 return httpSecurity.build();
 	 } 

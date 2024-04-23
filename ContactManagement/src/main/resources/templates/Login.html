@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="masterTemplate::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card mt-5">
+						<div th:if="${session.message}"
+							th:classappend="${session.message.typeString}"
+							class="alert alert-success" role="alert">
+							<p th:text="${session.message.messageContent}"></p>
+						</div>
+						<h2 class="text-center">Login Form</h2>
+
+						<form th:action="@{/doLogin}" method="post" th:object="${user}">
+							
+
+							<div class="mb-3">
+								<label for="username" class="form-label">Full Name</label>
+								
+								<input
+									type="text" class="form-control" id="username"
+									placeholder="Enter Here" name="username"
+									>
+									<!-- th:value="${user.username}" th:classappend="${#fields.hasErrors('username')}?'is-invalid':''" -->
+								<!-- <div th:each="erUName : ${#fields.errors('username')}" th:text="${erUName}" class="invalid-feedback"></div> -->
+							</div>
+
+							<div class="mb-3">
+								<label for="password" class="form-label">Password</label> 
+								<input
+									type="password" class="form-control" id="password"
+									placeholder="Enter Here" name="password">
+									<!-- th:value="${user.password}"
+									th:classappend="${#fields.hasErrors('password')}?'is-invalid':''"
+								
+								<div th:each="erPwd : ${#fields.errors('password')}" th:text="${erPwd}"
+									class="invalid-feedback"></div>
+								 -->	
+							</div>
+
+							<div class="container text-center">
+								<button type="submit" class="btn btn-primary ">Submit</button>
+								<button type="reset" class="btn btn-warning">Reset</button>
+							</div>
+						</form>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>
