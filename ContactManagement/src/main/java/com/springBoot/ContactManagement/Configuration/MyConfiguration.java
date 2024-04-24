@@ -21,7 +21,7 @@ public class MyConfiguration {
 
 	@Bean
 	public UserDetailsService getUserDetailsService() {
-		return  new UserDetailsServiceImp();
+		return new UserDetailsServiceImp();
 	}
 	
 	@Bean

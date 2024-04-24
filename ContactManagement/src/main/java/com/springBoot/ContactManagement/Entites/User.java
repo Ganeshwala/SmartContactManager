@@ -87,9 +87,9 @@ public class User {
 	
 	
 	public enum RoleAssign{
-		ADMIN("Admin"),
-		SUBADM("Sub-Admin"),
-		USER("User");
+		ADMIN("ROLE_Admin"),
+		SUBADM("ROLE_Sub-Admin"),
+		USER("ROLE_User");
 		
 		private String assignRole;
 		

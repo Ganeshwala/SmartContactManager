@@ -34,13 +34,13 @@
 	        <li class="nav-item">
 	          <a class="nav-link active" href="#">About</a>
 	        </li>
-	        
-	        <li class="nav-item">
-	          <a class="nav-link active" th:href="@{/SingIn}" tabindex="-1" aria-disabled="true">Loing</a>
+	        <li>
+	        	<a class="nav-link active" th:if="${User}!=null" th:href="@{/user/dashBoard}" tabindex="-1" aria-disabled="true" th:text="${User.loginName}" ></a>
+	        	<a class="nav-link active" th:unless="${User}!=null" th:href="@{/SingIn}" tabindex="-1" aria-disabled="true">Loing</a>
 	        </li>
-	        
 	        <li class="nav-item">
-	          <a class="nav-link active" th:href="@{/userSignUp}" tabindex="-1" aria-disabled="true">SignUp</a>
+	        	<a class="nav-link active" th:if="${User}!=null" th:href="@{/logout}" tabindex="-1" aria-disabled="true" >Logout</a>
+	          <a class="nav-link active" th:unless="${User}!=null" th:href="@{/userSignUp}" tabindex="-1" aria-disabled="true">SignUp</a>
 	        </li>
       </ul>
       
