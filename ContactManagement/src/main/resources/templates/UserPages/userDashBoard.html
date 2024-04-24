@@ -1,14 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="masterTemplate::layout(~{::section})">
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="masterTemplate::layout(~{::section})">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 	<section>
-		<h1>User Dash borad</h1>
-		<div th:text="${User.loginName}"></div>
-		<div></div>
+
+		<div class="sidebar">
+
+			<span th:onclick="toggleSidebar()" class="crossBtn">&times;</span>
+			<h1 th:text="${User.loginName}"></h1>
+			<a href="#"><i class="fa fa-home"></i>Home</a> <a href="#"><i
+				class="fa fa-book"></i> View Contacts</a> <a href="#"><i
+				class="fa fa-plus"></i>Add Contact</a> <a href="#"><i
+				class="fa fa-user"></i>Profile</a> <a href="#"><i class="fa fa-gear"></i>Setting</a>
+			<a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24"
+					viewBox="0 0 24 24" width="24">
+					<path d="M0 0h24v24H0z" fill="none" />
+					<path
+						d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" /></svg>Logout</a>
+			<div class="divider"></div>
+		</div>
+		<div class="content">
+			<i th:onclick="toggleSidebar()" class="fa fa-bars m-3" style="color:white;"></i>
+			<h1>Content coming</h1>
+		</div>
 	</section>
 </body>
 </html>
