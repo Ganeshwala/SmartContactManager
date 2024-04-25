@@ -21,7 +21,7 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-primary ">
+	<nav class="fixed-top navbar navbar-expand-lg navbar-light bg-primary ">
 		<div class="container-fluid">
 
 			<a class="navbar-brand" href="/SmartContactManager">Smart Contact
@@ -58,7 +58,7 @@
 	</nav>
 	<!-- In div we will put over code  -->
 
-	<div class="sidebar">
+	<div class="sidebar mt-2">
 
 			<span th:onclick="toggleSidebar()" class="crossBtn">&times;</span>
 			<h1 th:text="${User.loginName}"></h1>
@@ -75,7 +75,11 @@
 			<div class="divider"></div>
 		</div>
 		
-		<div th:replace="${content}" class="content">
+		<div  class="content mt-5">
+			<i th:onclick="toggleSidebar()" class="fa fa-bars m-3" style="color:white;"></i>
+			<div th:replace="${content}">
+			
+			</div>
 		</div>
 
 	
