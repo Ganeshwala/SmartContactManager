@@ -14,7 +14,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -35,5 +34,71 @@ public class ContactDeatil {
 	@ManyToOne
 	@JoinColumn(name = "user_Id",referencedColumnName = "userId")
 	private User userObj;
+
+	public long getContactId() {
+		return contactId;
+	}
+
+	public void setContactId(long contactId) {
+		this.contactId = contactId;
+	}
+
+	public String getContactName() {
+		return contactName;
+	}
+
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
+
+	public String getContactEmail() {
+		return contactEmail;
+	}
+
+	public void setContactEmail(String contactEmail) {
+		this.contactEmail = contactEmail;
+	}
+
+	public String getContactOccupation() {
+		return contactOccupation;
+	}
+
+	public void setContactOccupation(String contactOccupation) {
+		this.contactOccupation = contactOccupation;
+	}
+
+	public String getContactImg() {
+		return contactImg;
+	}
+
+	public void setContactImg(String contactImg) {
+		this.contactImg = contactImg;
+	}
+
+	public double getContachPhone() {
+		return contachPhone;
+	}
+
+	public void setContachPhone(double contachPhone) {
+		this.contachPhone = contachPhone;
+	}
+
+	public String getContactAbout() {
+		return contactAbout;
+	}
+
+	public void setContactAbout(String contactAbout) {
+		this.contactAbout = contactAbout;
+	}
+
+	public User getUserObj() {
+		return userObj;
+	}
+
+	public void setUserObj(User userObj) {
+		this.userObj = userObj;
+	}
+	
+	
 	
 }

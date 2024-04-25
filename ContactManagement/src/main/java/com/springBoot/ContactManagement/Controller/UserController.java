@@ -19,7 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.springBoot.ContactManagement.Entites.ContactDeatil;
 import com.springBoot.ContactManagement.Entites.User;
+import com.springBoot.ContactManagement.Helper.MessageHelper;
 import com.springBoot.ContactManagement.JpaRepository.UserJpaRepository;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -55,7 +59,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/saveContacts")
-	public String saveContact(@ModelAttribute("contactInfo") ContactDeatil conDetails,@RequestParam("profileImg")MultipartFile image , Model md,Principal principal) {
+	public String saveContact(@ModelAttribute("contactInfo") ContactDeatil conDetails,@RequestParam("profileImg")MultipartFile image , Model md,Principal principal,HttpSession session) {
 		//TODO: process POST request
 		try {
 			System.out.println(conDetails.toString());
@@ -74,8 +78,11 @@ public class UserController {
 			this.userJpaRepository.save(userDetailsByUserName);
 			System.out.println("Successful added contact");
 			md.addAttribute("title", "Add Contact");
+			
+			session.setAttribute("message", new MessageHelper("Contact Added Successfully!!!","success"));
 		}catch(Exception e) {
 			System.out.println(e);
+			session.setAttribute("message", new MessageHelper("Something want worng","danger"));
 		}
 		
 		
