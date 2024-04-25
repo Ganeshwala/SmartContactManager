@@ -1,13 +1,21 @@
 package com.springBoot.ContactManagement.Controller;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.springBoot.ContactManagement.Entites.ContactDeatil;
 import com.springBoot.ContactManagement.Entites.User;
@@ -47,16 +55,30 @@ public class UserController {
 	}
 	
 	@PostMapping("/saveContacts")
-	public String saveContact(@ModelAttribute("contactInfo") ContactDeatil conDetails, Model md,Principal principal) {
+	public String saveContact(@ModelAttribute("contactInfo") ContactDeatil conDetails,@RequestParam("profileImg")MultipartFile image , Model md,Principal principal) {
 		//TODO: process POST request
-		System.out.println(conDetails.toString());
-		User userDetailsByUserName = this.userJpaRepository.getUserDetailsByUserName(principal.getName());
+		try {
+			System.out.println(conDetails.toString());
+			User userDetailsByUserName = this.userJpaRepository.getUserDetailsByUserName(principal.getName());
+			
+			// processing and uploading file on location
+			conDetails.setContactImg(image.getOriginalFilename());
+			File saveImgLocation = new ClassPathResource("static/IMG").getFile();
+			
+			Path path = Paths.get(saveImgLocation.getAbsolutePath()+File.separator+image.getOriginalFilename());
+			
+			Files.copy(image.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+			
+			conDetails.setUserObj(userDetailsByUserName);
+			userDetailsByUserName.getContacts().add(conDetails);
+			this.userJpaRepository.save(userDetailsByUserName);
+			System.out.println("Successful added contact");
+			md.addAttribute("title", "Add Contact");
+		}catch(Exception e) {
+			System.out.println(e);
+		}
 		
-		conDetails.setUserObj(userDetailsByUserName);
-		userDetailsByUserName.getContacts().add(conDetails);
-		this.userJpaRepository.save(userDetailsByUserName);
-		System.out.println("Successful added contact");
-		md.addAttribute("title", "Add Contact");
+		
 		return "UserPages/addContact";
 	}
 	
