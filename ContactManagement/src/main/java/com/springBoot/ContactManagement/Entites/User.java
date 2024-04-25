@@ -81,7 +81,7 @@ public class User {
 	
 	private String role;
 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "userObjId")
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "userObj")
 	@Fetch(FetchMode.JOIN)
 	private List<ContactDeatil> contacts;
 	

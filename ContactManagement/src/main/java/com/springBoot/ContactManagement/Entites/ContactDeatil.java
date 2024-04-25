@@ -34,6 +34,6 @@ public class ContactDeatil {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_Id",referencedColumnName = "userId")
-	private User userObjId;
+	private User userObj;
 	
 }

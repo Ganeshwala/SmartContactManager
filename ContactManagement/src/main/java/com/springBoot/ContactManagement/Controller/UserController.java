@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.springBoot.ContactManagement.Entites.ContactDeatil;
 import com.springBoot.ContactManagement.Entites.User;
 import com.springBoot.ContactManagement.JpaRepository.UserJpaRepository;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 @RequestMapping("/user")
@@ -42,4 +45,19 @@ public class UserController {
 		md.addAttribute("contactInfo",new ContactDeatil());
 		return "UserPages/addContact";
 	}
+	
+	@PostMapping("/saveContacts")
+	public String saveContact(@ModelAttribute("contactInfo") ContactDeatil conDetails, Model md,Principal principal) {
+		//TODO: process POST request
+		System.out.println(conDetails.toString());
+		User userDetailsByUserName = this.userJpaRepository.getUserDetailsByUserName(principal.getName());
+		
+		conDetails.setUserObj(userDetailsByUserName);
+		userDetailsByUserName.getContacts().add(conDetails);
+		this.userJpaRepository.save(userDetailsByUserName);
+		System.out.println("Successful added contact");
+		md.addAttribute("title", "Add Contact");
+		return "UserPages/addContact";
+	}
+	
 }
