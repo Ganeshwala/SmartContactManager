@@ -24,4 +24,6 @@ public interface ContactJpaRepository extends JpaRepository<ContactDeatil, Long>
 	 */
 	@Query("from ContactDeatil c where c.userObj.userId=:uId")
 	public Page<ContactDeatil> findContactByUserId(@Param("uId")int userId,Pageable pageable);
+	
+	public ContactDeatil findAllByContactId(Long cid);
 }

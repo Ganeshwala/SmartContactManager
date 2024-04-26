@@ -78,21 +78,26 @@ public class UserController {
 			System.out.println(conDetails.toString());
 			User userDetailsByUserName = this.userJpaRepository.getUserDetailsByUserName(principal.getName());
 			
-			// processing and uploading file on location
-			conDetails.setContactImg(image.getOriginalFilename());
-			File saveImgLocation = new ClassPathResource("static/IMG").getFile();
-			
-			Path path = Paths.get(saveImgLocation.getAbsolutePath()+File.separator+image.getOriginalFilename());
-			
-			Files.copy(image.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
-			
-			conDetails.setUserObj(userDetailsByUserName);
-			userDetailsByUserName.getContacts().add(conDetails);
-			this.userJpaRepository.save(userDetailsByUserName);
-			System.out.println("Successful added contact");
-			md.addAttribute("title", "Add Contact");
-			
-			session.setAttribute("message", new MessageHelper("Contact Added Successfully!!!","success"));
+			if(image.isEmpty()) {
+				conDetails.setContactImg("default.jpeg");
+			}
+			else {
+				// processing and uploading file on location
+				conDetails.setContactImg(image.getOriginalFilename());
+				File saveImgLocation = new ClassPathResource("static/IMG").getFile();
+				
+				Path path = Paths.get(saveImgLocation.getAbsolutePath()+File.separator+image.getOriginalFilename());
+				
+				Files.copy(image.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+				
+				conDetails.setUserObj(userDetailsByUserName);
+				userDetailsByUserName.getContacts().add(conDetails);
+				this.userJpaRepository.save(userDetailsByUserName);
+				System.out.println("Successful added contact");
+				md.addAttribute("title", "Add Contact");
+				
+				session.setAttribute("message", new MessageHelper("Contact Added Successfully!!!","success"));
+			}
 		}catch(Exception e) {
 			System.out.println(e);
 			session.setAttribute("message", new MessageHelper("Something want worng","danger"));
@@ -124,6 +129,14 @@ public class UserController {
 		md.addAttribute("totalPages", contactList.getTotalPages());
 		
 		return "UserPages/displayContacts";
+	}
+	
+	@GetMapping("/viewDeatis/{contactId}")
+	public String showContactDetail(@PathVariable("contactId") Long cId,Model md) {
+		System.out.println("contactId"+cId);
+		ContactDeatil contactInfo = this.contactRepo.findAllByContactId(cId);
+		md.addAttribute("contactInfo", contactInfo);
+		return "UserPages/contactDetail";
 	}
 	
 }

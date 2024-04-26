@@ -24,10 +24,10 @@
 					<tbody >
 						<tr th:each="contact,contactsListIndex : ${contactsList}">
 							<th scope="row" th:text="${contactsListIndex.count}"></th>
-							<td th:text="${contact.contactName}"></td>
+							<td><a th:href="@{'/user/viewDeatis/'+${contact.contactId}}"> <span th:text="${contact.contactName}"></span></a></td>
 							<td th:text="${contact.contactEmail}"></td>
 							<td th:text="${contact.contachPhone}"></td>
-							<td th:text="${contact.contactEmail}"></td>
+							<td><img class="profile_Pic" th:src="@{'/IMG/'+${contact.contactImg}}" alt="profile picture" /></td>
 							<td>
 								<button type="button" class="btn btn-primary">View</button>
 								<button type="button" class="btn btn-danger">Delete</button>

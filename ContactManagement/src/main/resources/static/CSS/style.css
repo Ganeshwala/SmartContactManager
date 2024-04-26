@@ -92,3 +92,9 @@ body {
 .content {
 	margin-left: 20%;
 }
+
+.profile_Pic{
+	width: 30px;
+	height: 30px;
+	object-fit:cover;
+}
