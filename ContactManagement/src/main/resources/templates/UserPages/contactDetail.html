@@ -9,7 +9,7 @@
 <body>
 
 	<section>
-		<div class="card" style="margin-left: 5%; margin-right: 5%;">
+		<div class="card" style="margin-left: 5%; margin-right: 5%;" th:if="${contactInfo}">
 			<div class="card-body">
 				<div class="container-fluid mt-1  text-center">
 					<img class="profile_Pic " style="width: 200px;height: 200px;" th:src="@{'/IMG/'+${contactInfo.contactImg}}" alt="profile picture" />
@@ -47,6 +47,7 @@
 			</div>
 			
 		</div>
+		<h1 th:unless="${contactInfo}"  style="margin-left: 5%; margin-right: 5%;" class="texte-center p-3 bg-danger text-white">You don't have permission to see!!!! :)</h1>
 	</section>
 
 </body>

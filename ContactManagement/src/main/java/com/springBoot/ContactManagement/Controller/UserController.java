@@ -132,10 +132,13 @@ public class UserController {
 	}
 	
 	@GetMapping("/viewDeatis/{contactId}")
-	public String showContactDetail(@PathVariable("contactId") Long cId,Model md) {
+	public String showContactDetail(@PathVariable("contactId") Long cId,Model md,Principal principal) {
 		System.out.println("contactId"+cId);
 		ContactDeatil contactInfo = this.contactRepo.findAllByContactId(cId);
-		md.addAttribute("contactInfo", contactInfo);
+		User loginUser = getUserDetailt(principal.getName());
+		if(contactInfo!=null && loginUser.getUserId() == contactInfo.getUserObj().getUserId())
+			md.addAttribute("contactInfo", contactInfo);
+		
 		return "UserPages/contactDetail";
 	}
 	
