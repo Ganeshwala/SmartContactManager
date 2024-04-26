@@ -10,10 +10,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -97,15 +101,27 @@ public class UserController {
 		
 		return "UserPages/addContact";
 	}
-	
-	@GetMapping("/showContacts")
-	public String ShowContacts(Model md,Principal principal) {
+	/**
+	 * 
+	 * per page suppose we want to show 'n' contact e.g here we show 5 person per page
+	 * initial page number is 0 -> this will set as current page
+	 * 
+	 * @param md
+	 * @param principal
+	 * @return
+	 */
+	@GetMapping("/showContacts/{page}")
+	public String ShowContacts(@PathVariable("page") Integer crntPage, Model md,Principal principal) {
 		md.addAttribute("title", "Show Contact");
 		User loginUser = getUserDetailt(principal.getName());
 		//md.addAttribute("ContactInfos", loginUser.getContacts());*/
 		
-		List<ContactDeatil> contactList = this.contactRepo.findContactByUserId(loginUser.getUserId());
+		Pageable pageRequest = PageRequest.of(crntPage, 2);
+		
+		Page<ContactDeatil> contactList = this.contactRepo.findContactByUserId(loginUser.getUserId(),pageRequest);
 		md.addAttribute("contactsList", contactList);
+		md.addAttribute("currentPage", crntPage);
+		md.addAttribute("totalPages", contactList.getTotalPages());
 		
 		return "UserPages/displayContacts";
 	}
