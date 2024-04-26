@@ -65,10 +65,10 @@
 								</div>
 								
 								<div class="form-group mt-3">
-									<div class="input-group">
+									
 										
 										<textarea name="contactAbout" id="contactAbout" placeholder="Contact Description" class="form-control" rows="10" cols="auto"></textarea>
-									</div>
+									
 								</div>
 								<div class="container text-center mt-2">
 								   <button class="btn btn-outline-primary">Save Contact</button>
@@ -79,6 +79,12 @@
 				</div>
 			</div>
 		</div>
+		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+		<script>
+      tinymce.init({
+        selector: '#contactAbout'
+      });
+    </script>
 	</section>
 
 </body>

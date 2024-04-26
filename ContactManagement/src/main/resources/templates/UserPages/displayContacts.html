@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="UserPages/userCommon::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="card" style="margin-left: 5%; margin-right: 5%;">
+			<div class="card-body">
+
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Img</th>
+							<th scope="col" class="text-center">Action</th>
+						</tr>
+					</thead>
+					<tbody >
+						<tr th:each="contact,contactsListIndex : ${contactsList}">
+							<th scope="row" th:text="${contactsListIndex.count}"></th>
+							<td th:text="${contact.contactName}"></td>
+							<td th:text="${contact.contactEmail}"></td>
+							<td th:text="${contact.contachPhone}"></td>
+							<td th:text="${contact.contactEmail}"></td>
+							<td>
+								<button type="button" class="btn btn-primary">View</button>
+								<button type="button" class="btn btn-danger">Delete</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

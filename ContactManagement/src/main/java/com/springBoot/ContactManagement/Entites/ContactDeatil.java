@@ -27,7 +27,7 @@ public class ContactDeatil {
 	private String contactEmail;
 	private String contactOccupation;
 	private String contactImg;
-	private double contachPhone;
+	private String contachPhone;
 	@Column(length = 5000)
 	private String contactAbout;
 	
@@ -75,11 +75,11 @@ public class ContactDeatil {
 		this.contactImg = contactImg;
 	}
 
-	public double getContachPhone() {
+	public String getContachPhone() {
 		return contachPhone;
 	}
 
-	public void setContachPhone(double contachPhone) {
+	public void setContachPhone(String contachPhone) {
 		this.contachPhone = contachPhone;
 	}
 

@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.springBoot.ContactManagement.Entites.ContactDeatil;
 import com.springBoot.ContactManagement.Entites.User;
 import com.springBoot.ContactManagement.Helper.MessageHelper;
+import com.springBoot.ContactManagement.JpaRepository.ContactJpaRepository;
 import com.springBoot.ContactManagement.JpaRepository.UserJpaRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -35,13 +37,20 @@ public class UserController {
 	@Autowired
 	UserJpaRepository userJpaRepository;
 	
+	@Autowired
+	private ContactJpaRepository contactRepo;
+	
 	//common method which is call every time when this controller is call (kind of default method for all others method)
 	@ModelAttribute
-	private User getUserDetails(Model model,Principal principal) {
+	private void UserController(Model model,Principal principal) {
 		String loginName = principal.getName();
 		System.out.println("User page"+loginName);
-		User userDetailsByUserName = this.userJpaRepository.getUserDetailsByUserName(loginName);
+		User userDetailsByUserName = getUserDetailt(loginName);
 		model.addAttribute("User", userDetailsByUserName);
+	}
+	
+	private User getUserDetailt(String loginName) {
+		User userDetailsByUserName = this.userJpaRepository.getUserDetailsByUserName(loginName);
 		return userDetailsByUserName;
 	}
 	
@@ -87,6 +96,18 @@ public class UserController {
 		
 		
 		return "UserPages/addContact";
+	}
+	
+	@GetMapping("/showContacts")
+	public String ShowContacts(Model md,Principal principal) {
+		md.addAttribute("title", "Show Contact");
+		User loginUser = getUserDetailt(principal.getName());
+		//md.addAttribute("ContactInfos", loginUser.getContacts());*/
+		
+		List<ContactDeatil> contactList = this.contactRepo.findContactByUserId(loginUser.getUserId());
+		md.addAttribute("contactsList", contactList);
+		
+		return "UserPages/displayContacts";
 	}
 	
 }

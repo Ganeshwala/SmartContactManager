@@ -63,7 +63,7 @@
 			<span th:onclick="toggleSidebar()" class="crossBtn">&times;</span>
 			<h1 th:text="${User.loginName}"></h1>
 				<a href="/user/dashBoard"><i class="fa fa-home"></i>Home</a> 
-				<a href="#"><i class="fa fa-book"></i> View Contacts</a> 
+				<a th:href="@{/user/showContacts}"><i class="fa fa-book"></i> View Contacts</a> 
 				<a th:href="@{/user/addContacts}"><i class="fa fa-plus"></i>Add Contact</a> 
 				<a><i class="fa fa-user"></i>Profile</a> 
 				<a href="#"><i class="fa fa-gear"></i>Setting</a>
