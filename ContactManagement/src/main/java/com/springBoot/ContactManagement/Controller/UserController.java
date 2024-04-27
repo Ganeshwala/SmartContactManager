@@ -29,6 +29,7 @@ import com.springBoot.ContactManagement.JpaRepository.ContactJpaRepository;
 import com.springBoot.ContactManagement.JpaRepository.UserJpaRepository;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.server.PathParam;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -140,6 +141,27 @@ public class UserController {
 			md.addAttribute("contactInfo", contactInfo);
 		
 		return "UserPages/contactDetail";
+	}
+	
+	@GetMapping("/deleteContact/{contactId}/{pageNumber}")
+	public String deleteContactInfo(@PathVariable("contactId")Long cId,@PathVariable("pageNumber")Integer pageNum,Model md,Principal principal,HttpSession session) {
+		try {
+			System.out.println("contactId"+cId);
+			ContactDeatil contactInfo = this.contactRepo.findAllByContactId(cId);
+			
+			User loginUser = getUserDetailt(principal.getName());
+			
+			if(contactInfo!=null && loginUser.getUserId() == contactInfo.getUserObj().getUserId()) {	
+				contactInfo.setUserObj(null);
+				this.contactRepo.delete(contactInfo);
+				session.setAttribute("message", new MessageHelper("Contact Deleted Successfully!!!","success"));
+				return "redirect:/user/showContacts/"+pageNum;
+			}
+			session.setAttribute("message", new MessageHelper("Error while Deleting contact!!!","danger"));
+		}catch(Exception e) {
+			session.setAttribute("message", new MessageHelper("Error while Deleting contact!!!","danger"));
+		}
+		return "redirect:/user/showContacts/"+pageNum;
 	}
 	
 }

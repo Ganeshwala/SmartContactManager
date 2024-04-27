@@ -29,8 +29,10 @@
 							<td th:text="${contact.contachPhone}"></td>
 							<td><img class="profile_Pic" th:src="@{'/IMG/'+${contact.contactImg}}" alt="profile picture" /></td>
 							<td>
-								<button type="button" class="btn btn-primary">View</button>
-								<button type="button" class="btn btn-danger">Delete</button>
+								
+									<a th:href="@{'/user/viewDeatis/'+${contact.contactId}+'/'+${currentPage}}" class="btn btn-primary">View</a>
+									<a th:onclick="|deleteContact(${contact.contactId},${currentPage})|" class="btn btn-danger">Delete</a>
+								
 							</td>
 						</tr>
 					</tbody>
@@ -55,6 +57,47 @@
 				
 			</div>
 		</div>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<script type="text/javascript">
+			
+			function deleteContact(cid,pageNum){
+				const swalWithBootstrapButtons = Swal.mixin({
+					  customClass: {
+					    confirmButton: "btn btn-success",
+					    cancelButton: "btn btn-danger"
+					  },
+					  buttonsStyling: false
+					});
+					swalWithBootstrapButtons.fire({
+					  title: "Are you sure?",
+					  text: "You won't be able to revert this!",
+					  icon: "warning",
+					  showCancelButton: true,
+					  confirmButtonText: "Yes, delete it!",
+					  cancelButtonText: "No, cancel!",
+					  reverseButtons: true
+					}).then((result) => {
+					  if (result.isConfirmed) {
+						  window.location="/user/deleteContact/"+cid+"/"+pageNum
+					    swalWithBootstrapButtons.fire({
+					      title: "Deleted!",
+					      text: "Your Contact has been deleted.",
+					      icon: "success"
+					    });
+					  } else if (
+					    /* Read more about handling dismissals below */
+					    result.dismiss === Swal.DismissReason.cancel
+					  ) {
+					    swalWithBootstrapButtons.fire({
+					      title: "Cancelled",
+					      text: "You save you Contact :)",
+					      icon: "error"
+					    });
+					  }
+					});
+			}
+		
+		</script>
 	</section>
 </body>
 </html>
