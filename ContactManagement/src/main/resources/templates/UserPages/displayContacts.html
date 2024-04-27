@@ -30,7 +30,7 @@
 							<td><img class="profile_Pic" th:src="@{'/IMG/'+${contact.contactImg}}" alt="profile picture" /></td>
 							<td>
 								
-									<a th:href="@{'/user/viewDeatis/'+${contact.contactId}+'/'+${currentPage}}" class="btn btn-primary">View</a>
+									<a th:href="@{'/user/updateDeatis/'+${contact.contactId}}" class="btn btn-primary">Update</a>
 									<a th:onclick="|deleteContact(${contact.contactId},${currentPage})|" class="btn btn-danger">Delete</a>
 								
 							</td>

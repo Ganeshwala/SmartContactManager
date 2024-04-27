@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="UserPages/userCommon::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+
+	<section>
+		<div class="card" style="margin-left: 5%;margin-right: 5%;">
+			<div class="card-body">
+				<h1 class="text-center">Update Contacts</h1>
+				<div class="container-fluid mt-1">
+					<div class="row">
+						
+						<div class="col md-8 offset-md-2" style="margin-right: 5%;">
+							<form th:action="@{/user/updateContacts}" th:object="${contactInfo}" enctype='multipart/form-data' method="post" class="mt-2">
+								
+								<div class="text-center">
+									
+									<img class="img-account-profile rounded-circle mb-2" th:src="@{'/IMG/'+${contactInfo.contactImg}}" alt="profile picture">
+				                    <!-- Profile picture help block-->
+				                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+				                   
+				                   <input type="file" name="profileImg" id="contactImg"/>
+				                   <label for="contactImg" class="btn btn-primary">Choose file</label>
+											
+								</div>
+								
+								<div class="form-group mt-3">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text" style="height:100%; margin-right: 10px">
+												<i class="fa fa-plus"></i>
+											</div>
+										</div>
+										<input type="text" id="contactId" name="contactId" th:value="${contactInfo.contactId}" hidden/>
+										<input type="text" id="contactName" name="contactName" th:value="${contactInfo.contactName}" placeholder="Enter Name" class="form-control" focus />
+									</div>
+								</div>
+								
+								<div class="form-group mt-3">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text" style="height:100%; margin-right: 10px">
+												@
+											</div>
+										</div>
+										<input type="text" id="contactEmail" name="contactEmail " th:value="${contactInfo.contactEmail}" placeholder="Enter Email" class="form-control"  />
+									</div>
+								</div>
+								<div class="form-group mt-3">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text" style="height:100%; margin-right: 10px">
+												<i class="fa fa-briefcase"></i>
+											</div>
+										</div>
+										<input type="text" id="contactOccupation" name="contactOccupation " th:value="${contactInfo.contactOccupation}" placeholder="Enter Work" class="form-control" focus />
+									</div>
+								</div>
+								<div class="form-group mt-3">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text" style="height:100%; margin-right: 10px">
+												<i class="fa fa-phone"></i>
+											</div>
+										</div>
+										<input type="text" id="contachPhone" name="contachPhone " th:value="${contactInfo.contachPhone}" placeholder="Enter Phone" class="form-control" focus />
+									</div>
+								</div>
+								
+								<div class="form-group mt-3">
+									
+										
+										<textarea name="contactAbout" id="contactAbout" placeholder="Contact Description" th:utext="${contactInfo.contactAbout}" class="form-control" rows="10" cols="auto"></textarea>
+									
+								</div>
+								<div class="container text-center mt-2">
+								   <button class="btn btn-outline-primary">Save Contact</button>
+								</div>
+							</form> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Place the first <script> tag in your HTML's <head> -->
+		<script src="https://cdn.tiny.cloud/1/oos6d7bltzwvc9qprv33adm1llgplk67so6mosg923qe2dq2/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+		
+		<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+		<script>
+		
+			  tinymce.init({
+			    selector: '#contactAbout',
+			    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+			    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+			    tinycomments_mode: 'embedded',
+			    tinycomments_author: 'Author name',
+			    mergetags_list: [
+			      { value: 'First.Name', title: 'First Name' },
+			      { value: 'Email', title: 'Email' },
+			    ],
+			    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+			  });
+		</script>
+	</section>
+
+</body>
+</html>

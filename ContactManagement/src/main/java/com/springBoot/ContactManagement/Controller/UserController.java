@@ -107,6 +107,49 @@ public class UserController {
 		
 		return "UserPages/addContact";
 	}
+	
+	@PostMapping("/updateContacts")
+	public String updateContactDetails(@ModelAttribute("contactInfo") ContactDeatil conDetails,@RequestParam("profileImg")MultipartFile image , Model md,Principal principal,HttpSession session) {
+		try {
+			
+			User loginUser = this.userJpaRepository.getUserDetailsByUserName(principal.getName());
+			
+			ContactDeatil oldContactInfo = this.contactRepo.findAllByContactId(conDetails.getContactId());
+			if(oldContactInfo!=null && loginUser.getUserId() == oldContactInfo.getUserObj().getUserId()) {
+				if(!image.isEmpty()) {
+					File deleteImgLocation = new ClassPathResource("static/IMG").getFile();
+					File fileRomve = new File(deleteImgLocation, oldContactInfo.getContactImg());
+					if(!oldContactInfo.getContactImg().equalsIgnoreCase("default.jpeg") ) {
+						fileRomve.delete();
+					}
+					
+					File saveImgLocation = new ClassPathResource("static/IMG").getFile();
+					
+					Path path = Paths.get(saveImgLocation.getAbsolutePath()+File.separator+image.getOriginalFilename());
+					
+					Files.copy(image.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+					conDetails.setContactImg(image.getOriginalFilename());
+					
+				}else {
+					conDetails.setContactImg(oldContactInfo.getContactImg());
+				}
+				conDetails.setUserObj(loginUser);
+				this.contactRepo.save(conDetails);
+				
+				md.addAttribute("contactInfo", conDetails);
+				
+				session.setAttribute("message", new MessageHelper("Contact Updated Successfully!!!","success"));
+			}
+			
+		}catch(Exception e){
+			System.out.println(e);
+			md.addAttribute("contactInfo", conDetails);
+			session.setAttribute("message", new MessageHelper("Something want worng","danger"));
+		}
+		
+		return "UserPages/contactDetail";
+	}
+	
 	/**
 	 * 
 	 * per page suppose we want to show 'n' contact e.g here we show 5 person per page
@@ -132,7 +175,7 @@ public class UserController {
 		return "UserPages/displayContacts";
 	}
 	
-	@GetMapping("/viewDeatis/{contactId}")
+	@GetMapping({"/viewDeatis/{contactId}"})
 	public String showContactDetail(@PathVariable("contactId") Long cId,Model md,Principal principal) {
 		System.out.println("contactId"+cId);
 		ContactDeatil contactInfo = this.contactRepo.findAllByContactId(cId);
@@ -141,6 +184,17 @@ public class UserController {
 			md.addAttribute("contactInfo", contactInfo);
 		
 		return "UserPages/contactDetail";
+	}
+	
+	@GetMapping("/updateDeatis/{contactId}")
+	public String updateContactInformation(@PathVariable("contactId") Long cId,Model md,Principal principal) {
+		System.out.println("contactId"+cId);
+		ContactDeatil contactInfo = this.contactRepo.findAllByContactId(cId);
+		User loginUser = getUserDetailt(principal.getName());
+		if(contactInfo!=null && loginUser.getUserId() == contactInfo.getUserObj().getUserId())
+			md.addAttribute("contactInfo", contactInfo);
+		
+		return "UserPages/updateUserInfo";
 	}
 	
 	@GetMapping("/deleteContact/{contactId}/{pageNumber}")

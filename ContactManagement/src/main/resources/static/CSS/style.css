@@ -98,3 +98,12 @@ body {
 	height: 30px;
 	object-fit:cover;
 }
+
+.rounded-circle {
+    border-radius: 50% !important;
+}
+
+.img-account-profile {
+	width:10rem;
+    height: 10rem;
+}
