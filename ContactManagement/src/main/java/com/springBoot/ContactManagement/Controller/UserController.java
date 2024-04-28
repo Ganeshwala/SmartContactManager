@@ -206,8 +206,16 @@ public class UserController {
 			User loginUser = getUserDetailt(principal.getName());
 			
 			if(contactInfo!=null && loginUser.getUserId() == contactInfo.getUserObj().getUserId()) {	
-				contactInfo.setUserObj(null);
-				this.contactRepo.delete(contactInfo);
+				for(ContactDeatil contactDeatil : loginUser.getContacts()) {
+					if(contactDeatil.getContactId() == cId) {
+						loginUser.getContacts().remove(contactDeatil);
+						break;
+					}
+				}
+					
+				this.userJpaRepository.save(loginUser);
+				
+				
 				session.setAttribute("message", new MessageHelper("Contact Deleted Successfully!!!","success"));
 				return "redirect:/user/showContacts/"+pageNum;
 			}

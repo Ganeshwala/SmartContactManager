@@ -80,8 +80,11 @@ public class User {
 	private boolean active;
 	
 	private String role;
-
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "userObj")
+	/**
+	 * orphanRemoval while help us like
+	 * if we unlink child class(contacts) from parent class(User) then it will automatically remove entity from db
+	 */
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "userObj",orphanRemoval = true)
 	@Fetch(FetchMode.JOIN)
 	private List<ContactDeatil> contacts;
 	
