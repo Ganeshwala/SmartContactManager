@@ -69,6 +69,8 @@ public class User {
 	@Pattern(regexp = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$",message = "Please valided you Phone Number")
 	private String phoneNumber;
 	
+	private String occupation;
+	
 	private Date createDate;
 	
 	private Date modifyDate;

@@ -226,4 +226,49 @@ public class UserController {
 		return "redirect:/user/showContacts/"+pageNum;
 	}
 	
+	@GetMapping("/userProfile")
+	public String getMethodName(Model md,Principal principal) {
+		try {
+			System.out.println(md.getAttribute("User"));
+			
+		}catch(Exception e) {
+			
+		}
+		
+		return "UserPages/userProfile";
+	}
+	
+	@PostMapping("/ProfileIng")
+	public String postMethodName(@ModelAttribute("userInfo") User user,@RequestParam("profileImg")MultipartFile image,Model md,Principal principal) {
+		//TODO: process POST request
+		User userDetailt = getUserDetailt(principal.getName());
+		try {
+			if(userDetailt !=null && userDetailt.getUserId() == user.getUserId()) {
+				
+				File deleteImgLocation = new ClassPathResource("static/IMG").getFile();
+				File fileRomve = new File(deleteImgLocation, userDetailt.getUserImage());
+				if(!userDetailt.getUserImage().equalsIgnoreCase("default.jpeg") ) {
+					fileRomve.delete();
+				}
+				
+				File saveImgLocation = new ClassPathResource("static/IMG").getFile();
+				
+				Path path = Paths.get(saveImgLocation.getAbsolutePath()+File.separator+image.getOriginalFilename());
+				
+				Files.copy(image.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+				
+				user.setUserImage(image.getOriginalFilename());
+				
+				this.userJpaRepository.save(user);
+				
+			}
+		}catch(Exception e) {
+			
+		}
+		
+		return "UserPages/userProfile";
+	}
+	
+	
+	
 }
