@@ -34,7 +34,7 @@
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav txet-uppercase" style="margin-left: auto;">
+				<ul class="navbar-nav txet-uppercase " style="margin-left: auto;">
 
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" th:href="@{/user/dashBoard}">Home</a></li>
@@ -60,7 +60,7 @@
 
 	<div class="sidebar mt-2">
 
-			<span th:onclick="toggleSidebar()" class="crossBtn">&times;</span>
+			<span th:onclick="toggleSidebar()" class="table-responsive crossBtn">&times;</span>
 			<h1 th:text="${User.loginName}"></h1>
 				<a href="/user/dashBoard"><i class="fa fa-home"></i>Home</a> 
 				<a th:href="@{/user/showContacts/0}"><i class="fa fa-book"></i> View Contacts</a> 

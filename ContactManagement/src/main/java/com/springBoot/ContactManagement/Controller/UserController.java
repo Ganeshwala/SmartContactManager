@@ -238,7 +238,7 @@ public class UserController {
 		return "UserPages/userProfile";
 	}
 	
-	@PostMapping("/ProfileIng")
+	@PostMapping("/ProfileImg")
 	public String postMethodName(@ModelAttribute("userInfo") User user,@RequestParam("profileImg")MultipartFile image,Model md,Principal principal) {
 		//TODO: process POST request
 		User userDetailt = getUserDetailt(principal.getName());
@@ -268,6 +268,14 @@ public class UserController {
 		
 		return "UserPages/userProfile";
 	}
+	
+	@PostMapping("/EditProfile")
+	public String postMethodName(@RequestBody String entity) {
+		//TODO: process POST request
+		
+		return entity;
+	}
+	
 	
 	
 	

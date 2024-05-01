@@ -12,3 +12,11 @@ function toggleSidebar() {
         content.style.marginLeft = "0%";
     }
 }
+
+$(function(){
+  $('#upload').change(function(){
+    var url = $(this).val();
+    document.getElementById("form").submit();
+  });
+
+});
