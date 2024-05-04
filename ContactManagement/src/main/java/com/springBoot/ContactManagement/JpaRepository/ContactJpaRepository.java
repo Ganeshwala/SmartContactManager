@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.springBoot.ContactManagement.Entites.ContactDeatil;
+import com.springBoot.ContactManagement.Entites.User;
 
 @Repository
 public interface ContactJpaRepository extends JpaRepository<ContactDeatil, Long> {
@@ -26,4 +27,7 @@ public interface ContactJpaRepository extends JpaRepository<ContactDeatil, Long>
 	public Page<ContactDeatil> findContactByUserId(@Param("uId")int userId,Pageable pageable);
 	
 	public ContactDeatil findAllByContactId(Long cid);
+	
+	@Query(value="select * from contact_deatil where contact_name like %:name% and user_Id=:uId",nativeQuery=true)
+	public List<ContactDeatil> findByContactNameAndUser(@Param("name")String contactName,@Param("uId")int loginUserId );
 }
