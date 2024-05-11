@@ -13,6 +13,23 @@ function toggleSidebar() {
     }
 }
 
+const uploadNewImg=()=>{
+	
+	let newPic = $("#profileImg").val();
+	let userId = $("#uId").val();
+	console.log("new Image====>"+newPic);
+	if(newPic!=''){
+		let url = `http://localhost:8080/EditProfile/${userId}/${newPic}`;
+		
+		fetch(url).then((data)=>{
+			return response.json();
+		}).then(result=>{
+			window.reload();
+		})
+	}
+}
+
+
 const search=()=>{
 	//console.log("searching progress")
 	let keywords=$("#searchValue").val();
@@ -26,7 +43,7 @@ const search=()=>{
 		console.log(url)
 		
 		fetch(url).then((response)=>{
-			return response.json()
+			return response.json();
 		}).then((data)=>{
 			//console.log(data)
 			let diplayText = `<div class='list-group'>`;

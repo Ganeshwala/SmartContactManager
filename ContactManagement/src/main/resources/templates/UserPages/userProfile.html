@@ -18,7 +18,8 @@
 								th:src="'/IMG/'+${User.userImage}"
 								alt="" />
 							<div class="file btn btn-lg btn-primary">
-								Change Photo <input type="file" id="upload" name="profileImg" onchange="uploadNewImg(this)"/>
+								Change Photo <input type="file" id="profileImg" name="profileImg" onchange="uploadNewImg()"/>
+								<input type="text" th:value="${User.userId}" name="userId" id="uId"/>
 							</div>
 							
 						</div>
